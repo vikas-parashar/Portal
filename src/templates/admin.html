@@ -1,0 +1,35 @@
+<div>
+
+  <br>
+  <h1>Assignments:</h1>
+  <table class='table'>
+      <thead>
+          <tr>
+            <th>ID</th>
+            <th>Main Sub</th>
+            <th>Add Sub</th>
+            <th>Deadline</th>
+            <th>Amount</th>
+            <th>User</th>
+        </tr>
+    </thead>
+    {% for items in assign_details %}
+    <tbody>
+
+       <tr>
+          <!-- <td>{{ forloop.counter }}</td> -->
+          <td>{{ items.id }}</td>
+          <td>{{ items.main_sub }}</td>
+          <td>{{ items.add_sub }}</td>
+          <td>{{ items.deadline }}</td>
+          <td>{{ items.amount }}$</td>
+          <td>{{ items.username }}</td>
+          <td role="button"><a class="btn btn-success" href="/{{ items.username }}/{{ items.id }}">view</a></td>
+      </tr>
+
+  </tbody>
+
+  {% endfor %}
+</table>
+
+</div>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div>
+	<h1 class="lead">Tutors:</h1>
+		<table class="table">
+			<thead>
+	          <tr>
+	            <th>SN</th>
+	            <th>Name</th>
+	            <th>Phone No</th>
+	            <th>Subject</th>
+	        </tr>
+	    </thead>
+		<tbody>
+				{% for i in tutors_data  %}
+				<tr>
+				    <td>{{ forloop.counter }}</td>
+					<td>{{i.full_name}}</td>
+					<td>{{ i.phone_no }}</td>
+					<td>{{ i.subject }}</td>
+				</tr>
+
+			{% endfor %}
+		</tbody>
+		</table>
+	</div>
+{% endblock content %}

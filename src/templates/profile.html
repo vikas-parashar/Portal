@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load i18n %}
+
+{% block content %}
+	<form method="post" action=".">
+	  {% csrf_token %}
+
+	  {{ form|crispy }}
+		{# <p>{{ request.POST['is_tutor'] }}</p> #}
+	  <input class='btn btn-block btn-primary' type="submit" value="{% trans 'Next' %}" />
+	</form>
+{% endblock content %}

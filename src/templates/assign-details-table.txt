@@ -1,0 +1,11 @@
+<div>
+	<h3>Assignment details of </h3>
+
+		  <p>{{ assign_details.id }}</p>
+          <p>{{ assign_details.main_sub }}</p>
+          <p>{{ assign_details.add_sub }}</p>
+          <p>{{ assign_details.deadline }}</p>
+          <p>{{ assign_details.amount }}$</p>
+          <p>{{ assign_details.username }}</p>
+
+</div>

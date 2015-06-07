@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block head_title %}Welcome to {{ block.super }}{% endblock %}
+
+{% block content %}
+
+{% include "assign-details-table.html" %}
+
+<div>
+	  <table class='table'>
+	    {% for items in tutor_details %}
+	    <tr>
+	        <td></td>
+	        <td>{{ items.id }}</td>
+	        <td>{{ items.main_subject }}</td>
+	        <td>{{ items.full_name }}</td>
+	        <td>{{ items.email }}</td>
+	    </tr>
+
+	    {% endfor %}
+	</table>
+</div>
+{# {% include "mail.html" %} #}
+{# <a href="{% url 'mail' %} ">mail</a> #}
+
+{% endblock %}

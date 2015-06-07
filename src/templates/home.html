@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Welcome to {{ block.super }}{% endblock %}
+
+
+
+{% block content %}
+
+
+      <div class="jumbotron">
+        <h1>Welcome to StudyPortal</h1>
+        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+      </div>
+<div>
+{% if request.user.is_authenticated and request.user.is_staff %}
+    <div class="row">
+      <a href="{% url 'students' %}" class="btn-lg btn-success btn" role="button">Students</a>
+      <a href="{% url 'tutors' %}" class="btn-lg btn-success btn" role="button">Tutors</a>
+    </div>
+  {% include "admin.html" %}
+  {# {% include "students.html" %} #}
+
+{% elif request.user.is_authenticated and not request.user.is_staff %}
+
+  {% include "user.html" %}
+
+{% else %}
+
+            <p><a class="btn btn-lg btn-success" href="{% url 'registration_register'%}" role="button">Sign up today</a></p>
+
+{% endif %}
+      </div>
+
+
+      <footer class="footer">
+        <p>&copy; Company 2014</p>
+      </footer>
+
+{% endblock %}

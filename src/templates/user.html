@@ -1,0 +1,19 @@
+{% if  profile_data == 'Student' %}
+       <p><a class="btn btn-lg btn-success" href="{% url 'form' %}" role="button">Submit assignment</a></p>
+{% endif %}
+
+ <div>
+      <h2>{{ logged_user }} is {{ profile_data }} assignments: </h2>
+      <table class='table'>
+      {% for items in assign_details %}
+      <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ items.main_sub }}</td>
+      <td>{{ items.add_sub }}</td>
+      <td>{{ items.deadline }}</td>
+      <td>{{ items.amount }}$</td>
+      <!-- <td>{{ items.username }}</td> -->
+      </tr>
+      {% endfor %}
+      </table>
+ </div>

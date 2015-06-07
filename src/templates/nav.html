@@ -1,0 +1,16 @@
+<div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+          {% if not request.user.is_authenticated %}
+            <li role="presentation"><a href="#">About</a></li>
+            <li role="presentation"><a href="#">Contact</a></li>
+            <li role="presentation" class="active"><a href="{% url 'auth_login' %}">Login</a></li>
+            {% else %}
+            <!-- <li role="presentation"><a href="#">Contact</a></li> -->
+            <li role="presentation"><a href="{% url 'profile' %}">{{ request.user }}</a></li>
+            <li role="presentation" class="active"><a href="{% url 'auth_logout' %}?next=/">Logout</a></li>
+            {% endif %}
+          </ul>
+        </nav>
+        <h3 class="text-muted"><a href="{% url 'home' %}">StudyPortal</a></h3>
+      </div>
