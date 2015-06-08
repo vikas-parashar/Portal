@@ -11,6 +11,7 @@
             <th>Deadline</th>
             <th>Amount</th>
             <th>User</th>
+            <th>Timestamp</th>
         </tr>
     </thead>
     {% for items in assign_details %}
@@ -24,6 +25,7 @@
           <td>{{ items.deadline }}</td>
           <td>{{ items.amount }}$</td>
           <td>{{ items.username }}</td>
+           <td>{{ items.timestamp }}</td>
           <td role="button"><a class="btn btn-success" href="/{{ items.username }}/{{ items.id }}">view</a></td>
       </tr>
 

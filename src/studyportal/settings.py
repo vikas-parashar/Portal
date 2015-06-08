@@ -114,7 +114,7 @@ LOGOUT_REDIRECT_URL = '/accounts/register/'
 
 
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
 #SMTP SETTINGS
 
