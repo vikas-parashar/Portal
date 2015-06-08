@@ -7,7 +7,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from userprofile.forms import ExUserProfileForm
 from registration.backends.default.views import RegistrationView
-from registration.forms import RegistrationFormUniqueEmail
+from registration.forms import RegistrationFormUniqueEmail, RegistrationFormTermsOfService
 
 urlpatterns = [
 	url(r'^$', 'assignment.views.home', name="home"),
@@ -24,7 +24,7 @@ urlpatterns = [
         RegistrationView.as_view(form_class = ExUserProfileForm),
         name = 'registration_register'),
     # url(r'accounts/register/$',
-    #     RegistrationView.as_view(form_class = RegistrationFormUniqueEmail),
+    #     RegistrationView.as_view(form_class = RegistrationFormTermsOfService),
     #     name = 'registration_register'),
     url(r'^accounts/', include('registration.backends.default.urls')),
 ]
