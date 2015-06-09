@@ -12,7 +12,7 @@
       <td>{{ items.add_sub }}</td>
       <td>{{ items.deadline }}</td>
       <td>{{ items.amount }}$</td>
-      <!-- <td>{{ items.username }}</td> -->
+      <td>{{ items.timestamp|timesince }} ago</td>
       </tr>
       {% endfor %}
       </table>

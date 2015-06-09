@@ -11,20 +11,23 @@
             <th>Deadline</th>
             <th>Amount</th>
             <th>User</th>
+            <th>Timestamp</th>
         </tr>
     </thead>
     {% for items in assign_details %}
     <tbody>
 
        <tr>
-          <!-- <td>{{ forloop.counter }}</td> -->
-          <td>{{ items.id }}</td>
+          <td>{{ forloop.counter }}</td>
+          {# <td>{{ items.id }}</td> #}
           <td>{{ items.main_sub }}</td>
           <td>{{ items.add_sub }}</td>
           <td>{{ items.deadline }}</td>
           <td>{{ items.amount }}$</td>
           <td>{{ items.username }}</td>
+          <td>{{ items.timestamp|timesince }} ago</td>
           <td role="button"><a class="btn btn-success" href="/{{ items.username }}/{{ items.id }}">view</a></td>
+          <td role="button"><a class="btn btn-success" href="/">send mail</a></td>
       </tr>
 
   </tbody>

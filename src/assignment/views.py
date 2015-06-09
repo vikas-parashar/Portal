@@ -22,7 +22,7 @@ def home(request):
 	#FOR ADMIN ACCOUNT
 	if request.user.is_authenticated and request.user.is_staff:
 
-		assign_details = Assignment.objects.all()
+		assign_details = Assignment.objects.all().order_by('-timestamp')
 
 
 		context = {
@@ -41,11 +41,14 @@ def home(request):
 			logged_user_mail = logged_user.email
 
 			if profile_data != 'Tutor':
-				assign_details = Assignment.objects.filter(username = logged_user)
+				assign_details = Assignment.objects.filter(username = logged_user).order_by('-timestamp')
 			else:
 				# a = ExUserProfile.user.field.rel.to.objects.filter(username = request.user)
-				tutor_details = get_object_or_404(TutorProfile, email = logged_user_mail)
-				assign_details = Assignment.objects.filter(main_sub = tutor_details.subject)
+				try:
+					tutor_details = get_object_or_404(TutorProfile, email = logged_user_mail)
+					assign_details = Assignment.objects.filter(main_sub = tutor_details.subject).order_by('-timestamp')
+				except:
+					assign_details = []
 
 			context = {
 				"profile_data": profile_data,
@@ -80,7 +83,7 @@ def assignment_details(request, user_id):
 		assign_details = get_object_or_404(Assignment, pk = user_id)
 
 		tutor_details  = TutorProfile.objects.filter(subject = assign_details.main_sub)
-		# print "test"
+		print tutor_details
 		context = {
 			"assign_details": assign_details,
 			"tutor_details" : tutor_details,
@@ -109,19 +112,29 @@ def assignment_details(request, user_id):
 
 def mail(request):
 	if request.user.is_authenticated and request.user.is_staff:
-		email_template = "assign-details-table.html"
-		print "test 2"
+		assign_details = get_object_or_404(Assignment, pk = user_id)
 
-		from_email = "svnitvikas@gmail.com"
-		subject    = "Assignment for you"
-		message    = "get_template(email_template)"
-		if subject and message and from_email :
+		tutor_details  = TutorProfile.objects.filter(subject = assign_details.main_sub)
+		print tutor_details
+		context = {
+			"assign_details": assign_details,
+			"tutor_details" : tutor_details,
+		}
+
+		email_template_html = "assign-details-table.html"
+		email_template_txt  = "assign-details-table.txt"
+		mail_list           = [el.email for el in tutor_details]
+		from_email 			= settings.DEFAULT_FROM_EMAIL
+		subject    			= "Assignment for you"
+		text_content  		= render_to_string(email_template_txt, context)
+		html_content    	= render_to_string(email_template_html, context)
+
+		if subject and text_content and from_email :
 			try:
-				sendmail = EmailMessage(subject, message, to=['svnitvikas@gmail.com'])
-				sendmail.send(fail_silently=False)
-				# send_mail(topic, message, from_email, ['svnitvikas@gmail.com'], EMAIL_HOST_USER, EMAIL_HOST_PASSWORD)
+				# sendmail = EmailMessage(subject, message, to=['svnitvikas@gmail.com'])
+				# sendmail.send(fail_silently=False)
+				send_mail(subject, text_content, from_email, mail_list, fail_silently=False, html_message=html_content)
+				print "mail sent"
 			except BadHeaderError:
 				return HttpResponse('Invalid header found.')
-			return HttpResponse()
-
-	return HttpResponseRedirect("/thankyou/")
+			return HttpResponseRedirect("/")

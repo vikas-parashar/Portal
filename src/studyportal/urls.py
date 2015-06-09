@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^profile/', 'userprofile.views.profile', name="profile"),
     url(r'^tutor/', 'tutors.views.tutor', name="tutor"),
     url(r'^form/', 'assignment.views.assignment_form', name="form"),
-    url(r'^[a-z0-9_\-@+.]{3,30}/(?P<user_id>[0-9]{1,5})/', 'assignment.views.assignment_details',),
+    url(r'^[a-z0-9_\-@+.]{0,30}/(?P<user_id>[0-9]{1,5})/', 'assignment.views.assignment_details',),
 
     url(r'^students/', 'userprofile.views.students', name="students"),
     url(r'^tutors/', 'userprofile.views.tutors', name="tutors"),

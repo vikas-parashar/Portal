@@ -7,5 +7,6 @@
           <p>{{ assign_details.deadline }}</p>
           <p>{{ assign_details.amount }}$</p>
           <p>{{ assign_details.username }}</p>
+          <p>{{ assign_deatils.timestamp|timesince }} ago</p>
 
 </div>
