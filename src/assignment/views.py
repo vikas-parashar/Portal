@@ -83,19 +83,18 @@ def assignment_details(request, user_id):
 		assign_details = get_object_or_404(Assignment, pk = user_id)
 
 		tutor_details  = TutorProfile.objects.filter(subject = assign_details.main_sub)
-		print tutor_details
-		context = {
+        print tutor_details
+        context = {
 			"assign_details": assign_details,
 			"tutor_details" : tutor_details,
 		}
-
-		email_template_html = "assign-details-table.html"
-		email_template_txt  = "assign-details-table.txt"
-		mail_list           = [el.email for el in tutor_details]
-		from_email 			= settings.DEFAULT_FROM_EMAIL
-		subject    			= "Assignment for you"
-		text_content  		= render_to_string(email_template_txt, context)
-		html_content    	= render_to_string(email_template_html, context)
+        email_template_html = "assign-details-table.html"
+        email_template_txt  = "assign-details-table.txt"
+        mail_list           = [el.email for el in tutor_details]
+        from_email 			= settings.DEFAULT_FROM_EMAIL
+        subject    			= "Assignment for you"
+        text_content  		= render_to_string(email_template_txt, context)
+        html_content    	= render_to_string(email_template_html, context)
 
 		if subject and text_content and from_email :
 			try:
