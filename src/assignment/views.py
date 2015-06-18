@@ -5,6 +5,7 @@ from django.core.mail import send_mail, BadHeaderError, send_mass_mail
 from django.shortcuts import get_object_or_404
 from django.template.loader import get_template, render_to_string
 from django.conf import settings
+from django_ajax.decorators import ajax
 
 from tutors.models import TutorDetails
 
@@ -72,18 +73,18 @@ def assignment_form(request):
 	if form.is_valid():
 		Assignment1 = form.save(commit=False)
 		Assignment1.username = request.user
+		sub =  Assignment1.main_sub
 		Assignment1.save()
-
 		return HttpResponseRedirect("/")
 	return render(request, "form.html", context)
 
-
+@ajax
 def assignment_details(request, user_id):
 	if request.user.is_authenticated and request.user.is_staff:
 		assign_details = get_object_or_404(Assignment, pk = user_id)
 
 		tutor_details  = TutorProfile.objects.filter(subject = assign_details.main_sub)
-        print tutor_details
+        data =  assign_details.id
         context = {
 			"assign_details": assign_details,
 			"tutor_details" : tutor_details,
@@ -96,44 +97,12 @@ def assignment_details(request, user_id):
         text_content  		= render_to_string(email_template_txt, context)
         html_content    	= render_to_string(email_template_html, context)
 
-		if subject and text_content and from_email :
+        if subject and text_content and from_email :
 			try:
 				# sendmail = EmailMessage(subject, message, to=['svnitvikas@gmail.com'])
 				# sendmail.send(fail_silently=False)
 				send_mail(subject, text_content, from_email, mail_list, fail_silently=False, html_message=html_content)
-				print "mail sent"
 			except BadHeaderError:
 				return HttpResponse('Invalid header found.')
-
-		return render(request, "assign-details.html", context)
-
-
-
-def mail(request):
-	if request.user.is_authenticated and request.user.is_staff:
-		assign_details = get_object_or_404(Assignment, pk = user_id)
-
-		tutor_details  = TutorProfile.objects.filter(subject = assign_details.main_sub)
-		print tutor_details
-		context = {
-			"assign_details": assign_details,
-			"tutor_details" : tutor_details,
-		}
-
-		email_template_html = "assign-details-table.html"
-		email_template_txt  = "assign-details-table.txt"
-		mail_list           = [el.email for el in tutor_details]
-		from_email 			= settings.DEFAULT_FROM_EMAIL
-		subject    			= "Assignment for you"
-		text_content  		= render_to_string(email_template_txt, context)
-		html_content    	= render_to_string(email_template_html, context)
-
-		if subject and text_content and from_email :
-			try:
-				# sendmail = EmailMessage(subject, message, to=['svnitvikas@gmail.com'])
-				# sendmail.send(fail_silently=False)
-				send_mail(subject, text_content, from_email, mail_list, fail_silently=False, html_message=html_content)
-				print "mail sent"
-			except BadHeaderError:
-				return HttpResponse('Invalid header found.')
-			return HttpResponseRedirect("/")
+			# return render(request, "assign-details.html", context)
+			return data

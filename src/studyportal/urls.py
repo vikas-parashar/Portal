@@ -12,7 +12,6 @@ from registration.forms import RegistrationFormUniqueEmail, RegistrationFormTerm
 urlpatterns = [
 	url(r'^$', 'assignment.views.home', name="home"),
     url(r'^profile/', 'userprofile.views.profile', name="profile"),
-    url(r'^tutor/', 'tutors.views.tutor', name="tutor"),
     url(r'^form/', 'assignment.views.assignment_form', name="form"),
     url(r'^[a-z0-9_\-@+.]{0,30}/(?P<user_id>[0-9]{1,5})/', 'assignment.views.assignment_details',),
 

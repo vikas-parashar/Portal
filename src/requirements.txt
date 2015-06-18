@@ -1,12 +1,11 @@
 Django==1.8.2
-Pillow==2.8.1
-argparse==1.2.1
 django-admin-bootstrapped==2.5.0
 django-crispy-forms==1.4.0
 django-dotenv==1.3.0
 django-getenv==1.3.1
-django-registration-redux==1.2
+djangoajax==2.2.15
 httplib2==0.9.1
+ipython==3.1.0
 oauth2==1.5.211
+Pillow==2.8.1
 python-openid==2.2.5
-wsgiref==0.1.2

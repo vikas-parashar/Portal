@@ -26,8 +26,8 @@
           <td>{{ items.amount }}$</td>
           <td>{{ items.username }}</td>
           <td>{{ items.timestamp|timesince }} ago</td>
-          {# <td role="button"><a class="btn btn-success" href="/{{ items.username }}/{{ items.id }}">view</a></td> #}
-          <td role="button"><a class="btn btn-success" href="/">send mail</a></td>
+          <td role="button"><a type="button" id="{{ items.id }}"class="btn btn-success" href="/{{ items.username }}/{{ items.id }}" data-ajax="true" data-success="processResponse">Send</a></td>
+          {# <td role="button"><a class="btn btn-success" href="/">send mail</a></td> #}
       </tr>
 
   </tbody>
@@ -36,3 +36,9 @@
 </table>
 
 </div>
+<script type="text/javascript">
+        function processResponse(content) {
+                    $("#"+content).text("sent").attr("disabled","disabled");
+                    // alert("mail sent to"+content);
+                };
+    </script>
